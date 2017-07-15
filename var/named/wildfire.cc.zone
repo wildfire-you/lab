@@ -1,0 +1,41 @@
+$ORIGIN wildfire.cc.
+$TTL 86400
+@       IN SOA  gw.wildfire.cc. gateway.wildfire.cc. (
+       2001062501  ; serial
+       21600       ; refresh after 6 hours
+       3600        ; retry after 1 hour
+       604800      ; expire after 1 week
+       86400 )     ; minimum TTL of 1 day
+
+        IN NS   gw.wildfire.cc.
+        IN NS   gateway.wildfire.cc.
+gw.wildfire.cc. IN A 10.1.0.1
+gateway.wildfire.cc. IN A 10.1.0.1
+win10-b12-guayou.wildfire.cc IN A 10.1.0.2
+
+@       IN MX 10        gw.wildfire.cc.
+
+k8s-master.wildfire.cc. IN A 10.1.0.11
+k8s-minion-vmware.wildfire.cc. IN A 10.1.0.50
+k8s-minion-b12.wildfire.cc. IN A 10.1.0.51
+
+oc-master.wildfire.cc. IN A 10.1.1.11
+oc-minion-vmware.wildfire.cc. IN A 10.1.1.50
+oc-minion-b12.wildfire.cc. IN A 10.1.1.51
+
+compute2.wildfire.cc. IN A 10.1.0.52
+compute3.wildfire.cc. IN A 10.1.0.53
+compute4.wildfire.cc. IN A 10.1.0.54
+compute-vmwarei.wildfire.cc. IN A 172.16.1.50
+compute1i.wildfire.cc. IN A 172.16.1.51
+compute1i.wildfire.cc. IN A 172.16.1.51
+compute2i.wildfire.cc. IN A 172.16.1.52
+compute3i.wildfire.cc. IN A 172.16.1.53
+
+
+swift1.wildfire.cc. IN A 10.1.0.41
+swift2.wildfire.cc. IN A 10.1.0.42
+
+
+cde250.wildfire.cc. IN A 10.1.0.70
+ansible-worker.wildfire.cc. IN A 10.1.0.80

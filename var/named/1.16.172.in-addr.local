@@ -1,0 +1,21 @@
+$ORIGIN 1.16.172.in-addr.arpa.
+$TTL    86400
+@       IN SOA  gw.wildfire.cc. gw1.wildfire.cc. (
+       2001062501  ; serial
+       21600       ; refresh after 6 hours
+       3600        ; retry after 1 hour
+       604800      ; expire after 1 week
+       86400 )     ; minimum TTL of 1 day
+@       IN NS   gw.wildfire.cc.
+@       IN NS   gw1.wildfire.cc.
+1   IN PTR  gw.wildfire.cc.
+1   IN PTR  gw1.wildfire.cc.
+
+11  IN PTR controlleri.wildfire.cc.
+
+
+50  IN PTR compute-vmwarei.wildfire.cc.
+51  IN PTR compute1i.wildfire.cc.
+52  IN PTR compute2i.wildfire.cc.
+53  IN PTR compute3i.wildfire.cc.
+54  IN PTR compute4i.wildfire.cc.

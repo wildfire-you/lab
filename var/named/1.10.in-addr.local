@@ -1,0 +1,34 @@
+$ORIGIN 1.10.in-addr.arpa.
+$TTL    86400
+@       IN SOA  gw.wildfire.cc. gw1.wildfire.cc. (
+       2001062501  ; serial
+       21600       ; refresh after 6 hours
+       3600        ; retry after 1 hour
+       604800      ; expire after 1 week
+       86400 )     ; minimum TTL of 1 day
+@       IN NS   gw.wildfire.cc.
+@       IN NS   gateway.wildfire.cc.
+1   IN PTR  gateway.wildfire.cc.
+1   IN PTR  gw.wildfire.cc.
+2   IN PTR win10-b12-guayou.wildfire.cc
+
+11  IN PTR k8s-master.wildfire.cc.
+50  IN PTR k8s-minion-vmware.wildfire.cc.
+51  IN PTR k8s-minion-b12.wildfire.cc.
+
+11.1  IN PTR oc-master.wildfire.cc.
+50.1  IN PTR oc-minion-vmware.wildfire.cc.
+51.1  IN PTR oc-minion-b12.wildfire.cc.
+
+52  IN PTR compute2.wildfire.cc.
+53  IN PTR compute3.wildfire.cc.
+54  IN PTR compute4.wildfire.cc.
+
+
+41  IN PTR swift1.wildfire.cc.
+42  IN PTR swift2.wildfire.cc.
+
+
+70  IN PTR cde250.wildfire.cc.
+
+80  IN PTR ansible-worker.wildfire.cc.
