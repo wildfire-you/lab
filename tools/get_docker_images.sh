@@ -128,3 +128,52 @@ do
    echo $item
    ./pull_docker.sh $item $tag $server $path $arch &
 done 
+
+#quay.io/coreos/etcd-operator:v0.5.2
+
+tag=v0.5.2
+server=quay.io
+path=coreos/
+arch=
+for item in "etcd-operator"
+do 
+   echo $item
+   ./pull_docker.sh $item $tag $server $path $arch &
+done 
+
+#quay.io/coreos/etcd:v3.1.8
+
+tag=v3.1.8
+server=quay.io
+path=coreos/
+arch=
+for item in "etcd"
+do
+   echo $item
+   ./pull_docker.sh $item $tag $server $path $arch &
+done
+
+#docker.io/centos:7
+
+tag=7
+server=docker.io
+path=
+arch=
+for item in "centos"
+do
+   echo $item
+   ./pull_docker.sh $item $tag $server $path $arch &
+done
+
+
+#docker.io/centos:7.3.1611
+
+tag=7.3.1611
+server=docker.io
+path=
+arch=
+for item in "centos"
+do
+   echo $item
+   ./pull_docker.sh $item $tag $server $path $arch &
+done

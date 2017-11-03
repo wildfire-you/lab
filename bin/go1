@@ -1,0 +1,7 @@
+if [ -z $1 ]
+then
+  ssh root@10.1.10.85
+else
+  ssh root@$1
+fi
+

@@ -1,0 +1,6 @@
+if [ -z $1 ]
+then
+  ssh -i ~/.ssh/v2pcssh.key v2pc@10.1.10.85
+else
+  ssh -i ~/.ssh/v2pcssh.key v2pc@$1
+fi
