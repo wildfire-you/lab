@@ -1,0 +1,136 @@
+- name: Deploy MPE JITP
+  hosts: localhost
+  gather_facts: no
+  tasks:
+   - name: Create a worker VM template
+     with_items:
+       - [ 1, 2, 3, 4, 5 ]
+     vmware_guest:
+       hostname: 10.79.47.152
+       username: administrator@vsphere.local
+       password: Cisco!23
+       validate_certs: no
+       datacenter: guayou-b12-small-ivp
+       cluster: ivp
+       resource_pool: ivp
+       folder: ivp
+       name: ivpworker_w{{ item }}
+       state: poweredon
+       guest_id: rhel7_64Guest
+       disk:
+       - size_gb: 16
+         type: thin
+         autoselect_datastore: yes
+       - size_gb: 80
+         type: thin
+         autoselect_datastore: yes
+       hardware:
+         memory_mb: 49152
+         num_cpus: 8
+         scsi: paravirtual
+       networks:
+       - name: vlan555
+         device_type: vmxnet3
+         type: dhcp
+       - name: vlan102
+         device_type: vmxnet3
+         type: dhcp
+       - name: vlan103
+         device_type: vmxnet3
+         type: dhcp
+       - name: vlan556
+         device_type: vmxnet3
+         type: dhcp
+         
+     delegate_to: localhost
+     register: deploy_worker
+
+   - name: Create a edge worker VM template
+     with_items:
+       - [ 1, 2, 3, 4 ]
+     vmware_guest:
+       hostname: 10.79.47.152
+       username: administrator@vsphere.local
+       password: Cisco!23
+       validate_certs: no
+       datacenter: guayou-b12-small-ivp
+       cluster: ivp
+       resource_pool: ivp
+       folder: ivp
+       name: ivpworker_e{{ item }}
+       state: poweredon
+       guest_id: rhel7_64Guest
+       disk:
+       - size_gb: 16
+         type: thin
+         autoselect_datastore: yes
+       - size_gb: 80
+         type: thin
+         autoselect_datastore: yes
+       hardware:
+         memory_mb: 8192
+         num_cpus: 2
+         scsi: paravirtual
+       networks:
+       - name: vlan555
+         device_type: vmxnet3
+         type: dhcp
+       - name: vlan102
+         device_type: vmxnet3
+         type: dhcp
+       - name: vlan103
+         device_type: vmxnet3
+         type: dhcp
+       - name: vlan556
+         device_type: vmxnet3
+         type: dhcp
+         
+     delegate_to: localhost
+     register: deploy_worker_e
+
+   - name: Create a master VM template
+     vmware_guest:
+       hostname: 10.79.47.152
+       username: administrator@vsphere.local
+       password: Cisco!23
+       validate_certs: no
+       datacenter: guayou-b12-small-ivp
+       cluster: ivp
+       resource_pool: ivp
+       folder: ivp
+       name: ivpworker_m
+       is_template: yes
+       state: poweredon
+       guest_id: rhel7_64Guest
+       disk:
+       - size_gb: 32
+         type: thin
+         autoselect_datastore: yes
+       hardware:
+         memory_mb: 8192
+         num_cpus: 2
+         scsi: paravirtual
+       networks:
+       - name: vlan555
+         device_type: vmxnet3
+         type: dhcp
+       - name: vlan102
+         device_type: vmxnet3
+         type: dhcp
+       - name: vlan103
+         device_type: vmxnet3
+         type: dhcp
+       - name: vlan556
+         device_type: vmxnet3
+         type: dhcp
+         
+     delegate_to: localhost
+     register: deploy_master
+
+   - name: get vm Info
+     local_action: copy content={{ item }} dest="/path/to/destination/file{{ item.msg.results.item }}"
+     with_items:
+       - "{{ deploy_worker }}"
+       - "{{ deploy_worker_e }}"
+       - "{{ deploy_master }}"
+

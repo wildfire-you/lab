@@ -1,0 +1,73 @@
+- name: Deploy VM
+  hosts: localhost
+  gather_facts: no
+  tasks:
+   - name: Create a worker VM from template
+     with_items:
+       - [ 1,2,3,4,5,6 ]
+     vmware_guest:
+       hostname: 10.79.47.152
+       username: administrator@vsphere.local
+       password: Cisco!23
+       validate_certs: no
+       datacenter: guayou-b12-small-ivp
+       cluster: ivp
+       template: ivp-coe-template
+       resource_pool: ivp
+       folder: ivp
+       name: ivpcoe60_w{{ item }}
+       state: poweredon
+     delegate_to: localhost
+     register: deploy_worker
+
+   - name: get vm Info
+     command: /root/lab/vmware/update_sysconfig.sh "{{ item.instance.hw_eth0.macaddress }}" "{{ item.item }}" w ivpcoe60-
+     with_items:
+       - "{{ deploy_worker.results }}"
+
+   - name: Create edge nodes
+     with_items:
+       - [ 1,2 ]
+     vmware_guest:
+       hostname: 10.79.47.152
+       username: administrator@vsphere.local
+       password: Cisco!23
+       validate_certs: no
+       datacenter: guayou-b12-small-ivp
+       cluster: ivp
+       template: ivp-coe-template-small
+       resource_pool: ivp
+       folder: ivp
+       name: ivpcoe60_e{{ item }}
+       state: poweredon
+     delegate_to: localhost
+     register: deploy_edge
+
+   - name: get vm Info
+     command: /root/lab/vmware/update_sysconfig.sh "{{ item.instance.hw_eth0.macaddress }}" "{{ item.item }}" e ivpcoe60-
+     with_items:
+       - "{{ deploy_edge.results }}"
+
+   - name: Create master VM from template
+     with_items:
+       - [ 1 ]
+     vmware_guest:
+       hostname: 10.79.47.152
+       username: administrator@vsphere.local
+       password: Cisco!23
+       validate_certs: no
+       datacenter: guayou-b12-small-ivp
+       cluster: ivp
+       template: ivp-coe-template-small
+       resource_pool: ivp
+       folder: ivp
+       name: ivpcoe60_m{{ item }}
+       state: poweredon
+     delegate_to: localhost
+     register: deploy_master
+
+   - name: get vm Info
+     command: /root/lab/vmware/update_sysconfig.sh "{{ item.instance.hw_eth0.macaddress }}" "{{ item.item }}" m ivpcoe60-
+     with_items:
+       - "{{ deploy_master.results }}"
+
