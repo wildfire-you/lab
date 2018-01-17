@@ -126,7 +126,7 @@ arch=
 for item in "alpine"
 do 
    echo $item
-   ./pull_docker.sh $item $tag $server $path $arch &
+   ./pull_docker_new.sh $item $tag $server $path $arch &
 done 
 
 #quay.io/coreos/etcd-operator:v0.5.2
@@ -162,7 +162,7 @@ arch=
 for item in "centos"
 do
    echo $item
-   ./pull_docker.sh $item $tag $server $path $arch &
+   ./pull_docker_new.sh $item $tag $server $path $arch &
 done
 
 
@@ -175,7 +175,7 @@ arch=
 for item in "centos"
 do
    echo $item
-   ./pull_docker.sh $item $tag $server $path $arch &
+   ./pull_docker_new.sh $item $tag $server $path $arch &
 done
 
 #docker.io/registry:2
@@ -187,7 +187,7 @@ arch=
 for item in "registry"
 do
    echo $item
-   ./pull_docker.sh $item $tag $server $path $arch &
+   ./pull_docker_new.sh $item $tag $server $path $arch &
 done
 
 #bitnami/redis:3.2.6-r2
@@ -238,17 +238,6 @@ do
 done
 
 
-tag=v1.8.4
-server=gcr.io
-path=google_containers/
-arch=-amd64
-for item in "kube-apiserver" "kube-controller-manager" "kube-scheduler" "kube-proxy"
-do 
-   echo $item
-   ./pull_docker.sh $item $tag $server $path $arch &
-done 
-
-
 
 tag=3.0.17
 server=gcr.io
@@ -289,5 +278,58 @@ for item in "flannel"
 do 
    echo $item
    ./pull_docker.sh $item $tag $server $path &
+done 
+
+########## k8s 1.9.1 
+
+
+tag=v1.9.1
+server=k8s.gcr.io
+path=
+arch=-amd64
+for item in "kube-apiserver" "kube-controller-manager" "kube-scheduler" "kube-proxy"
+do 
+   echo $item
+   ./pull_docker_new.sh $item $tag $server $arch &
+done 
+
+tag=3.1.10
+server=k8s.gcr.io
+path=
+arch=-amd64
+for item in "etcd"
+do 
+   echo $item
+   ./pull_docker_new.sh $item $tag $server $path $arch &
+done
+
+tag=3.0
+server=k8s.gcr.io
+path=
+arch=-amd64
+for item in "pause"
+do 
+   echo $item
+   ./pull_docker_new.sh $item $tag $server $path $arch &
+done
+
+tag=1.14.7
+server=k8s.gcr.io
+path=
+arch=-amd64
+for item in "k8s-dns-sidecar" "k8s-dns-kube-dns" "k8s-dns-dnsmasq-nanny"
+do 
+   echo $item
+   ./pull_docker_new.sh $item $tag $server $path $arch &
+done
+
+tag=1.0.2
+server=docker.io
+path=coredns/
+arch=
+for item in "coredns"
+do 
+   echo $item
+   ./pull_docker.sh $item $tag $server $path $arch &
 done 
 
